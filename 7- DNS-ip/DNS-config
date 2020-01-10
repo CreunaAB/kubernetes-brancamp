@@ -1,0 +1,19 @@
+We have succefully used a DNS strategy where we point wildcards to the cluster, no configuration neededd to create new services.
+
+Name			Type		Data											Notes
+					A				<PROD_IP>									Point everything to the prodcluster if it doesn´t match below, fallback
+cms				A				<Cms azure website IP>		This is not hosted in cluster, needs specific IP
+www				A				<PROD_IP>									Legacy, can probably be removed now when blank records exists
+dev				A				<DEVTEST_CLUSTER_IP>			frontend for dev
+test			A				<DEVTEST_CLUSTER_IP>			frontend for test
+*.dev			A				<DEVTEST_CLUSTER_IP>			services for dev, ex, api.dev.mydomain.com
+*.test		A				<DEVTEST_CLUSTER_IP>			services for test ex, api.test.mydomain.com
+
+This setup allows the following dns combinations
+
+mydomain.com, points to the prod cluster, main site
+myservice1.mydomain.com, microservice in production
+myservice2.mydomain.com, another microservice in production
+
+dev.mydomain.com, test.mydomain.com, sites for dev and test
+service1.dev.mydomain.com, service1.dev.mydomain.com, services for dev and test

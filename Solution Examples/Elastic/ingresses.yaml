@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: mongo
+  name: mongo
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing # This depends of the load balancer type
+spec:
+  rules:
+  - host: d806e83fd21b458d8ba2.northeurope.aksapp.io
+    http:
+      paths:
+      - backend:
+          serviceName: mongo-mongodb
+          servicePort: 27017
+        path: /

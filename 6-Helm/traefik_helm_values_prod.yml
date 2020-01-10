@@ -1,0 +1,400 @@
+## Default values for Traefik
+image: traefik
+imageTag: 1.7.7
+## can switch the service type to NodePort if required
+serviceType: LoadBalancer
+# loadBalancerIP: ""
+# loadBalancerSourceRanges: []
+whiteListSourceRange: []
+externalTrafficPolicy: Local
+replicas: 1
+# startupArguments:
+#   - "--ping"
+#   - "--ping.entrypoint=http"
+
+podDisruptionBudget:
+  {}
+  # maxUnavailable: 1
+  # minAvailable: 2
+
+# priorityClassName: ""
+
+# rootCAs: []
+
+cpuRequest: 100m
+memoryRequest: 100Mi
+cpuLimit: 100m
+memoryLimit: 100Mi
+debug:
+  enabled: true
+
+deploymentStrategy:
+  {}
+  # rollingUpdate:
+  #   maxSurge: 1
+  #   maxUnavailable: 0
+  # type: RollingUpdate
+
+securityContext: {}
+nodeSelector:
+  {}
+  # key: value
+affinity:
+  {}
+  # key: value
+tolerations: []
+# - key: "key"
+#   operator: "Equal|Exists"
+#   value: "value"
+#   effect: "NoSchedule|PreferNoSchedule|NoExecute(1.6 only)"
+## Kubernetes ingress filters
+# kubernetes:
+# endpoint:
+# namespaces:
+# - default
+# labelSelector:
+# ingressClass:
+# ingressEndpoint:
+#   hostname: "localhost"
+#   ip: "127.0.0.1"
+#   publishedService: "namespace/servicename"
+#   useDefaultPublishedService: false
+proxyProtocol:
+  enabled: false
+  # trustedIPs is required when enabled
+  trustedIPs: []
+  # - 10.0.0.0/8
+forwardedHeaders:
+  enabled: false
+  # trustedIPs is required when enabled
+  trustedIPs: []
+  # - 10.0.0.0/8
+ssl:
+  enabled: true
+  enforced: true
+  permanentRedirect: true
+  upstream: false
+  insecureSkipVerify: false
+  generateTLS: false
+  # defaultCN: "example.com"
+  # or *.example.com
+  defaultSANList:
+    []
+    # - example.com
+    # - test1.example.com
+  defaultIPList:
+    []
+    # - 1.2.3.4
+  # cipherSuites: []
+  # https://docs.traefik.io/configuration/entrypoints/#specify-minimum-tls-version
+  # tlsMinVersion: VersionTLS12
+  defaultCert: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUhzRENDQnBpZ0F3SUJBZ0lKQU9wekRvUm9Nc0lqTUEwR0NTcUdTSWIzRFFFQkN3VUFNSUcwTVFzd0NRWUQKVlFRR0V3SlZVekVRTUE0R0ExVUVDQk1IUVhKcGVtOXVZVEVUTUJFR0ExVUVCeE1LVTJOdmRIUnpaR0ZzWlRFYQpNQmdHQTFVRUNoTVJSMjlFWVdSa2VTNWpiMjBzSUVsdVl5NHhMVEFyQmdOVkJBc1RKR2gwZEhBNkx5OWpaWEowCmN5NW5iMlJoWkdSNUxtTnZiUzl5WlhCdmMybDBiM0o1THpFek1ERUdBMVVFQXhNcVIyOGdSR0ZrWkhrZ1UyVmoKZFhKbElFTmxjblJwWm1sallYUmxJRUYxZEdodmNtbDBlU0F0SUVjeU1CNFhEVEU1TURJeE5UQTNNemd4TkZvWApEVEl4TURJeE5UQTNNemd4TkZvd096RWhNQjhHQTFVRUN4TVlSRzl0WVdsdUlFTnZiblJ5YjJ3Z1ZtRnNhV1JoCmRHVmtNUll3RkFZRFZRUUREQTBxTG5ObGNtNWxhMlZ1TG5ObE1JSUNJakFOQmdrcWhraUc5dzBCQVFFRkFBT0MKQWc4QU1JSUNDZ0tDQWdFQXBQMFFhOW1CL3llTWthNUw1bEtlY3Q3KzZWYnoxU0VnQ1BNN1F5enNMU1ZFeHFYeAprRlk0ZzM5eEE2S3VxYnArODJkbXZ3K056SlFwSXM3RG1PUVJPbVpwWm9nTFVhbHFYRnhMd1NrVTgyNEdNME9iClVIRVh5dGljSHFqNytMMnJFRVhDSk5id0JVMG9RaFcycTAwM2M1U2JISDI3S2NjakkvOGpVdHdKUkJaKzhqTVMKUkF2TnVXSGhOOGtLeGhuMFVvRmpVRjBDbkY0aExiSFgrWGtGMjk5TENVRjFjY0JLOFYrWGtGR3pVVUVzWWx5cApJSUhTK09aWkhRMlNQZWkvTVVHVnNSallxZTVxaGZzUXNCKzBOVjRhZmd6SWJQeU9yei8rT3k4UTRLRmROV0VDCjJFTlE3b0hZcEFxckZDKzB5VkIxUWp4UFNna0h6NFhrZ0NkbWlUemEvRndpZ08xb3Q2eGc0QlduSHdDR243ZmkKelJ6MFd5UUErdzZsR0RZV3N4YUlGUTI4RVRScGJ2U2RBdHZtMTVsRmU2MERIZHhQcG14TlB5OU4yalNOaHZDRQpOYmErRDYyUlBQaGZTT1hDNGVKVFFJQW41KzhlWFJCcmxNLytlSzVlZjdvY0pPSnhFQStKWGt6YVQwZXBUVi9SCjdNOEZma3d2dTdWUFhZWk1UWXJHMzYzUzVDZmI4UkIrVUFKUVV4L0RzSHA5RDBqVU5PeDAwa3NuUDhIYmR2SUUKak90NHZlVEVvd2N2NEU5RUVlZFd6ejJQbnEya2dxNm5xMVIyWVNvZ0t0OUM1bFNobEF1UG9PU1JoRHF3TjBXeQp3RnJiRnJlQUpMZmJxS2dEVW5sczhyZmZPdWRwZXBubE42MHV5UEJ6MlB6ajBJWHRHd01SN3VCN2MvMENBd0VBCkFhT0NBenN3Z2dNM01Bd0dBMVVkRXdFQi93UUNNQUF3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFR0NDc0cKQVFVRkJ3TUNNQTRHQTFVZER3RUIvd1FFQXdJRm9EQTNCZ05WSFI4RU1EQXVNQ3lnS3FBb2hpWm9kSFJ3T2k4dgpZM0pzTG1kdlpHRmtaSGt1WTI5dEwyZGthV2N5Y3pFdE9URTRMbU55YkRCZEJnTlZIU0FFVmpCVU1FZ0dDMkNHClNBR0cvVzBCQnhjQk1Ea3dOd1lJS3dZQkJRVUhBZ0VXSzJoMGRIQTZMeTlqWlhKMGFXWnBZMkYwWlhNdVoyOWsKWVdSa2VTNWpiMjB2Y21Wd2IzTnBkRzl5ZVM4d0NBWUdaNEVNQVFJQk1IWUdDQ3NHQVFVRkJ3RUJCR293YURBawpCZ2dyQmdFRkJRY3dBWVlZYUhSMGNEb3ZMMjlqYzNBdVoyOWtZV1JrZVM1amIyMHZNRUFHQ0NzR0FRVUZCekFDCmhqUm9kSFJ3T2k4dlkyVnlkR2xtYVdOaGRHVnpMbWR2WkdGa1pIa3VZMjl0TDNKbGNHOXphWFJ2Y25rdloyUnAKWnpJdVkzSjBNQjhHQTFVZEl3UVlNQmFBRkVEQ3ZTZU96RFNETUtJejEvdHNzL0MwTElET01DVUdBMVVkRVFRZQpNQnlDRFNvdWMyVnlibVZyWlc0dWMyV0NDM05sY201bGEyVnVMbk5sTUIwR0ExVWREZ1FXQkJTUXZxQ2dJTlJMCmZMVElTNnZDTzRucHEwbVV3RENDQVg4R0Npc0dBUVFCMW5rQ0JBSUVnZ0Z2QklJQmF3RnBBSGNBcExrSmtMUVkKV0JTSHV4T2l6R2R3Q2p3MW1BVDVHOSs0NDNmTkRzZ04zQkFBQUFGbzhCZDBzd0FBQkFNQVNEQkdBaUVBeGtJTwpZbTlVc1duZTI0ajllOVhVQjhSbmxyNnVlZGVKTFl6Ti9RZW41SUVDSVFETnRzMWg0ZXl3aUlZNEZqbWJHckVVCmF5bEVYSm8venVLSXY3UE5qQU5Ra2dCMUFPNUx2YmQxem1DNjRVSnBINnZobm1hakQzNWZzSExZZ3dERWU0bDYKcVAzTEFBQUJhUEFYZU5zQUFBUURBRVl3UkFJZ0drUWp3ZVZHRnV0cWFaU21NR1hmQkxqMWpDOEt0emk0MkE3Qgp5ODZaOFRzQ0lBRW5SOEd6Uk9rU05IOTN1QkFUWmowMC9CdVk3UGpPSzc2ZmEySG9Db3MyQUhjQVJKUmxMckR1CnpxL0VRQWZZcVA0b3dOcm1ncjdZeXpHMVA5TXpsclcyZ2FnQUFBRm84QmQ4cFFBQUJBTUFTREJHQWlFQWlVdzAKbG1DQ3hQcUpacGI1d0YxYlNFbXd2Y0RwSFNnN1p0UkxRYjVYcXNrQ0lRRGQ3T1BFZW1CN1FBMnQzV0ZpSjBPRAovcS9OMjN3ckp2by83dXZoUkJJbzFEQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFITXdHSW9pRk9aeHU5M2o5CmZTMXNTRDhQRENraEMyTVhJVGJEVUpnUmxyZlRPN09UeFcramRsb3hIWEIzTGJobG40TVBRdzJtWWpyS1NuVzgKMW9SVjZlM2ZOakJQb1FCVnJPd0p6U2ZvNzZjbjEyZnA1ellkSHpCOWlZTzkvRmFtMld4VE5ITmt4N1hzUzA5Ugp6T0d3Zk1aNThxc2h6bHRCL1NCT2VUU1RRaDZOTnFvWjNRSndTdUJIa0Vna2NiWGpZczJxZWlCRDR2b2FOZWlICjN6ZFhROXd0TEpzdFNyemRqOHdRYkVhV1RHNDNpcmRqVnRpWHRXakxLTXlLN3htT3I0Y3NoRzlVd0x2MFNKNEUKYmZCSllVb3RNZ3BkTE1xZEtKTUhJS0YveXV3TGN0Sm9nYmpGV2ljVTdUMWZEVEZSbzY1RlNKVnZJVWtsbUVKMApUdTY1NlE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  defaultKey: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUpRd0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQ1Mwd2dna3BBZ0VBQW9JQ0FRQ2svUkJyMllIL0o0eVIKcmt2bVVwNXkzdjdwVnZQVklTQUk4enRETE93dEpVVEdwZkdRVmppRGYzRURvcTZwdW43eloyYS9ENDNNbENraQp6c09ZNUJFNlptbG1pQXRScVdwY1hFdkJLUlR6YmdZelE1dFFjUmZLMkp3ZXFQdjR2YXNRUmNJazF2QUZUU2hDCkZiYXJUVGR6bEpzY2Zic3B4eU1qL3lOUzNBbEVGbjd5TXhKRUM4MjVZZUUzeVFyR0dmUlNnV05RWFFLY1hpRXQKc2RmNWVRWGIzMHNKUVhWeHdFcnhYNWVRVWJOUlFTeGlYS2tnZ2RMNDVsa2REWkk5Nkw4eFFaV3hHTmlwN21xRgoreEN3SDdRMVhocCtETWhzL0k2dlAvNDdMeERnb1YwMVlRTFlRMUR1Z2Rpa0Nxc1VMN1RKVUhWQ1BFOUtDUWZQCmhlU0FKMmFKUE5yOFhDS0E3V2kzckdEZ0ZhY2ZBSWFmdCtMTkhQUmJKQUQ3RHFVWU5oYXpGb2dWRGJ3Uk5HbHUKOUowQzIrYlhtVVY3clFNZDNFK21iRTAvTDAzYU5JMkc4SVExdHI0UHJaRTgrRjlJNWNMaDRsTkFnQ2ZuN3g1ZApFR3VVei81NHJsNS91aHdrNG5FUUQ0bGVUTnBQUjZsTlg5SHN6d1YrVEMrN3RVOWRoa3hOaXNiZnJkTGtKOXZ4CkVINVFBbEJUSDhPd2VuMFBTTlEwN0hUU1N5Yy93ZHQyOGdTTTYzaTk1TVNqQnkvZ1QwUVI1MWJQUFkrZXJhU0MKcnFlclZIWmhLaUFxMzBMbVZLR1VDNCtnNUpHRU9yQTNSYkxBV3RzV3Q0QWt0OXVvcUFOU2VXenl0OTg2NTJsNgptZVUzclM3SThIUFkvT1BRaGUwYkF4SHU0SHR6L1FJREFRQUJBb0lDQUFPa1NnVEF2aEpxVVNZVkRXYXJLN0FDCjZwTUVJT2t6TERzWkFxcnlxL3JreXA0WGpjWmZGTlp0alhVa1ZlRWl0VWg4OU9NTTZPeHdyUnR3S2hmdTdzOXIKRzhmNjJFUnk3aDZxOHpRZUNwdVluSWxCK2RvVHlQcVRWSmVHVTRZcEg1bkNHY0tJNlFRMlJnZ2haUkVSRTYzWQoyYUg1SE5TK1U4WlRZYzJqZnVQZEd1dTdMZ1p6cHBTV2k4Q3VEc1M5Sld3SWRabjhRa0ZwS3RKN1RXRUdaMnllCm1EclVmUG05WWhvWS8xRGM4TTJVd3B5Z05DUFJkeDFETGw2S1ltV1I3ek1iTjJrN2tHcTkwUkJJaGYrR2o1L1UKUml4Q21YanpDOWpqOE15N0lhUlNXTldaQzRCSHRNVmRvZHZMR0NnZnFSMyt5VHZQUzN1Kzg4aHU5RDBubHRIYwphNWpOa21ELzJKWkZVY2Y0dXhGWFFFWkpJOXBQSjNjQlMyUXhPUEhYNVBHcjZkUzNOSEphemRFejFkb1ZZTDY4ClVFdTQ4OFlVakQ2RHNkUGNvTVh1UmY2S0l5dHJuMFJDUUJQNHRwQ2o4eWtBQkFDRW9ZcDBDeWlBQXhVNVRROFkKL0dWTHZBYXVrTmJIVjhsV0JXaWJtWjRDY1YrTkFmVWNsbjl0WDhUcDNURFA3M0t2M2FLdHQ3SXBXd3dRT21ocQowOElhelhJZEhvcWlLV0pnTTJ0K3cyTnUzeUlRdTBFQzQraWhKaDVsWld5TXhmQStQbU9wbkd5N0tyYVhaS1dyCjM3OWcydE5QODJuTFdKNElndEZLdm5CK1NkbWpoRFl6NVZHOWV2VWE5MHFVS3c5TXA2L2FnR2hoOEt4NnNScjIKM0lGWHB4b0I0ZllRdkgySzFFdVpBb0lCQVFEWVRIUVB2V0praUhyRndmSmlVUEdXbDZoOW1ZclVCZDI3ZmZzWgo4Z2tNRWZ5UUhyTlpjWFNEOFJ3YW5hTEErUXNoK1lrU2x1SWQ0L09rZXZlblBQWmVSNTFiUGJGMElRSUk1SkJGCm9wRDkvQnYxdnRTSGxhK3U0ZHBnT3ZtSkY1RXhVU2FYWlljb05qdlhPYmVndWdEc2FubEFXcDVmZk4zYSsrbmEKOTZRWXNQVSs1eHFOZG9vL2JjMEEyTnR0WmRNT0VsWXJHOUdBRjlXRDdlMTB2SElYeGtOclNHYUpIZWNzaFdNOApIZUFCZW1UMHh6cnU0cUVMajUvYTlZWGhPYzU1Y0tJSFpNU2NHbkh4dml4VzlMdTdnMkd6RXB6ek01T1BNOGRnClhLdTRBUVdxRDFQRVl4blBqK1FVcGJGbXpoWklBUklhdUZ3cU9oNnVMcUxpKzhJbEFvSUJBUUREUmFCRE9DdmUKNldQZGd6STIvcEN5SVlyejR4a1VWcEJFdlBXY3oydnNtb2pyL2NNSDNaNUlMTzhPOWVnOThLZURiWi9Ua2RHWQpHOGsxR1JubGJDNUNSRXMza0NBYWNCL1M1R2oweFFDNXNsZVZJSnJCY3lIT0lYeE5Ud1NuSXoweFFIRTVmRDc1ClZJZ2U1NU9ZQXY2MFI2U1UyTGJMYUpNRG1GMWl5NGRwTVpNczJBR0pBcHIvMjBjNWVpdmZZWFRkSGVRUnlTcVMKVGlLc0RWYlpicTAvSjhOVGpMK0xpL3AwNVNka0QySUlQYzVjRkp6WDVEeUFUeklYdkVhN0hoQmc0eHNUTkdPZgpUS1ZaMmkxMmVIN0hSMGRTeEgwZlJXZEVESXNZR3pUdXBCbTdjbXVpN0JyT2tYTVFzSVRBRHVra0NYSEhIa0c3CnNnMFFmbzFsdDhiNUFvSUJBRnZNL3dsYklMSjRkbHNPZUxnZmtKbVFubk5JUW5MQVZwNW4xclhwVXN1cnFwemsKV3N4Z2FjcEIvK0tQK3U2YUJJNlQ0UWhodjNCZU9oOGFEWmdPT0taRkVOVVR0d2dKcGxwdDM0bWVlSmxEY2Y1MwowcTRFNnI1M252NXVxVS8xRDZ0MXZNSk8xZkZNSzFPcWJIUXIzWTU1bGlLcEUwU0ZzNGRvbVpWVXUzRzdVU3MwClhNR2ppUU5vcjdSblZhSDFzSUR0YVdMOGVJczhFbVBmRElRYUl2WlNNSFVORW0rcG9GNzE4ZXNtNXRiWndwVmQKSlhjVCtyUDBiaTA1UFd3YzQ3UUpDTXZJaWVXVEY3ODVMb3B0Ym13a1U4Zno0MmNaQWN5cWRqbEF1NlRwMGlTZQpRcmc4TTAwenplS3hmRHljeFRva01qSGpBMExzemU2eFhuS2wxWDBDZ2dFQkFKOUk1VkRQdWlHTU9mVVFOdDdiClNvYXppOWdqc0dxQnJnOFVJRG00ak8ya3BQbnp0cXBzNGRjNEtBMEpGRmVxUGNxY21wb0hRWFFWZmt4ODNEM2oKdjl3NFB5N2t0dnM1NlF1clc5NEY4UENKQko1VnlVYnh0bXFoci9hVDlWU3REeFprM2JjcG5XamV4bWFIT2tMdQpkbnZ5VU5ORjc5Myt3S1ZYSFI0Z3JhVm1WZ3BuYk9FcEtleDVIeUZJZ2c4bVBTQzlhRFFGNTE4T3M0T3JJZVFkClB0N2NmWjFpbTBDbWZ6ZnBVUGR6QU9GK0lSM0ZocWNvdXgxaS9KYVY4eEJobHJTaHJJMCsxK0N5c2RLWWdTczUKWVJrSEVLdjRNYVJYaGNQaGczaTNnTGNGVHlRelVvL0VqcDFmMGYrVUxjVklwRzdMOFc2ZVJMcHBvL1NIZHFtNQpmbWtDZ2dFQkFJQXRXWk13akF4eHJ6QnMrTjlURVh1MGhyVEFzVHF1VDIxVG55a0JQclpPRXc4NmJPb2VtVUNDCm9HYjBiVjNHdC9lTkkxelF2Znhqb3l1ZzBBRExLVENOQ3FkbExBZlMycW1MM0lTTHNjM0hCRGpmVGRlb25tTTkKdTE3ZUFWTkEzZ0FyRWZLeENZOE96VFI2MjBvM0FCRnpyWG0xbmhhbEJ0YmgzbXlzWXczbytiQVJPb2NIMjdtawpCOVFxVEVJd3BTVWd2VUJJaEtCSGdtNVhaMDd3K0tYVTJzTDhMOENDbWl6cjJaczFaTlZKN0ZZWmIwbGJMVEtQCmxEWGhhYWFBUmNNNGNlWjFwK0dZYTdGVHdnM2owL2hzVHBySW9tUEtURkx2Q0RtZWFoK0U4Q1VFbzFKazZUTlcKV0pwVWNnbitRajZXUHMySmlYTDYxV09GS0dwSSsrTT0KLS0tLS1FTkQgUFJJVkFURSBLRVktLS0tLQ==
+  # Basic auth to protect all the routes. Can use htpasswd to generate passwords
+  # > htpasswd -n -b testuser testpass
+  # > testuser:$apr1$JXRA7j2s$LpVns9vsme8FHN0r.aSt11
+  auth:
+    {}
+    # basic:
+    #   testuser: $apr1$JXRA7j2s$LpVns9vsme8FHN0r.aSt11
+
+kvprovider:
+  ## If you want to run Traefik in HA mode, you will need to setup a KV Provider. Therefore you can choose one of
+  ## * etcd
+  ## * consul
+  ## * boltdb
+  ## * zookeeper
+  ##
+  ## ref: https://docs.traefik.io/user-guide/cluster/
+
+  ## storeAcme has to be enabled to support HA Support using acme, but at least one kvprovider is needed
+  storeAcme: false
+  importAcme: false
+
+  # etcd:
+  # endpoint: etcd-service:2379
+  # useAPIV3: false
+  # watch: true
+  # prefix: traefik
+  ## Override default configuration template.
+  ## For advanced users :)
+  ##
+  ## Optional
+  # filename: consul.tmpl
+  # username: foo
+  # password: bar
+  # tls:
+  #   ca: "/etc/ssl/ca.crt"
+  #   cert: "/etc/ssl/consul.crt"
+  #   key: "/etc/ssl/consul.key"
+  #   insecureSkipVerify: true
+  #
+  # consul:
+  # endpoint: consul-service:8500
+  # watch: true
+  # prefix: traefik
+  ## Override default configuration template.
+  ## For advanced users :)
+  ##
+  ## Optional
+  # filename: consul.tmpl
+  # username: foo
+  # password: bar
+  # tls:
+  #   ca: "/etc/ssl/ca.crt"
+  #   cert: "/etc/ssl/consul.crt"
+  #   key: "/etc/ssl/consul.key"
+  #   insecureSkipVerify: true
+  ## only relevant for etcd
+
+acme:
+  enabled: false
+  email: admin@example.com
+  onHostRule: true
+  staging: true
+  logging: false
+  # Configure a Let's Encrypt certificate to be managed by default.
+  # This is the only way to request wildcard certificates (works only with dns challenge).
+  domains:
+    enabled: false
+    # List of sets of main and (optional) SANs to generate for
+    # for wildcard certificates see https://docs.traefik.io/configuration/acme/#wildcard-domains
+    domainsList:
+      # - main: "*.example.com"
+      # - sans:
+      #   - "example.com"
+      # - main: "*.example2.com"
+      # - sans:
+      #   - "test1.example2.com"
+      #   - "test2.example2.com"
+  ## ACME challenge type: "tls-sni-01", "tls-alpn-01", "http-01" or "dns-01"
+  ## Note the chart's default of tls-sni-01 has been DEPRECATED and (except in
+  ## certain circumstances) DISABLED by Let's Encrypt. It remains as a default
+  ## value in this chart to preserve legacy behavior and avoid a breaking
+  ## change. Users of this chart should strongly consider making the switch to
+  ## the recommended "tls-alpn-01" (avaialbe since v1.7), dns-01 or http-01
+  ## (available since v1.5) challenge.
+  challengeType: tls-sni-01
+  ## Configure dnsProvider to perform domain verification using dns challenge
+  ## Applicable only if using the dns-01 challenge type
+  delayBeforeCheck: 0
+  dnsProvider:
+    name: nil
+    auroradns:
+      AURORA_USER_ID: ""
+      AURORA_KEY: ""
+      AURORA_ENDPOINT: ""
+    azure:
+      AZURE_CLIENT_ID: ""
+      AZURE_CLIENT_SECRET: ""
+      AZURE_SUBSCRIPTION_ID: ""
+      AZURE_TENANT_ID: ""
+      AZURE_RESOURCE_GROUP: ""
+    cloudflare:
+      CLOUDFLARE_EMAIL: ""
+      CLOUDFLARE_API_KEY: ""
+    digitalocean:
+      DO_AUTH_TOKEN: ""
+    dnsimple:
+      DNSIMPLE_OAUTH_TOKEN: ""
+      DNSIMPLE_BASE_URL: ""
+    dnsmadeeasy:
+      DNSMADEEASY_API_KEY: ""
+      DNSMADEEASY_API_SECRET: ""
+      DNSMADEEASY_SANDBOX: ""
+    dnspod:
+      DNSPOD_API_KEY: ""
+    dyn:
+      DYN_CUSTOMER_NAME: ""
+      DYN_USER_NAME: ""
+      DYN_PASSWORD: ""
+    exoscale:
+      EXOSCALE_API_KEY: ""
+      EXOSCALE_API_SECRET: ""
+      EXOSCALE_ENDPOINT: ""
+    gandi:
+      GANDI_API_KEY: ""
+    godaddy:
+      GODADDY_API_KEY: ""
+      GODADDY_API_SECRET: ""
+    gcloud:
+      GCE_PROJECT: ""
+      GCE_SERVICE_ACCOUNT_FILE: ""
+    linode:
+      LINODE_API_KEY: ""
+    namecheap:
+      NAMECHEAP_API_USER: ""
+      NAMECHEAP_API_KEY: ""
+    ns1:
+      NS1_API_KEY: ""
+    otc:
+      OTC_DOMAIN_NAME: ""
+      OTC_USER_NAME: ""
+      OTC_PASSWORD: ""
+      OTC_PROJECT_NAME: ""
+      OTC_IDENTITY_ENDPOINT: ""
+    pdns:
+      PDNS_API_URL: ""
+    rackspace:
+      RACKSPACE_USER: ""
+      RACKSPACE_API_KEY: ""
+    rfc2136:
+      RFC2136_NAMESERVER: ""
+      RFC2136_TSIG_ALGORITHM: ""
+      RFC2136_TSIG_KEY: ""
+      RFC2136_TSIG_SECRET: ""
+      RFC2136_TIMEOUT: ""
+    route53:
+      AWS_REGION: ""
+      AWS_ACCESS_KEY_ID: ""
+      AWS_SECRET_ACCESS_KEY: ""
+    vultr:
+      VULTR_API_KEY: ""
+  ## Save ACME certs to a persistent volume.
+  ## WARNING: If you do not do this and you did not have configured
+  ## a kvprovider, you will re-request certs every time a pod (re-)starts
+  ## and you WILL be rate limited!
+  persistence:
+    enabled: true
+    annotations: {}
+    ## acme data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    ## A manually managed Persistent Volume Claim
+    ## Requires persistence.enabled: true
+    ## If defined, PVC must be created manually before volume will be bound
+    ##
+    # existingClaim:
+dashboard:
+  enabled: true
+  domain: traefik.serneken.se
+  # serviceType: ClusterIP
+  service:
+    {}
+    # annotations:
+    #   key: value
+  ingress:
+    {}
+    # annotations:
+    #   key: value
+    # labels:
+    #   key: value
+    # tls:
+    # - hosts:
+    #   - traefik.example.com
+    #   secretName: traefik-default-cert
+  auth:
+    {}
+    # basic:
+    #   username: password
+  statistics:
+    {}
+    ## Number of recent errors to show in the ‘Health’ tab
+    # recentErrors:
+service:
+  # annotations:
+  #   key: value
+  # labels:
+  #   key: value
+  ## Further config for service of type NodePort
+  ## Default config with empty string "" will assign a dynamic
+  ## nodePort to http and https ports
+  nodePorts:
+    http: ""
+    https: ""
+  ## If static nodePort configuration is required it can be enabled as below
+  ## Configure ports in allowable range (eg. 30000 - 32767 on minikube)
+  # nodePorts:
+  #   http: 30080
+  #   https: 30443
+gzip:
+  enabled: true
+traefikLogFormat: json
+accessLogs:
+  enabled: true
+  ## Path to the access logs file. If not provided, Traefik defaults it to stdout.
+  # filePath: ""
+  format: common # choices are: common, json
+  ## for JSON logging, finer-grained control over what is logged. Fields can be
+  ## retained or dropped, and request headers can be retained, dropped or redacted
+  fields:
+    # choices are keep, drop
+    defaultMode: keep
+    names:
+      {}
+      # ClientUsername: drop
+    headers:
+      # choices are keep, drop, redact
+      defaultMode: keep
+      names:
+        {}
+        # Authorization: redact
+rbac:
+  enabled: true
+## Enable the /metrics endpoint, for now only supports prometheus
+## set to true to enable metric collection by prometheus
+metrics:
+  prometheus:
+    enabled: false
+    ## If true, prevents exposing port 8080 on the main Traefik service, reserving
+    ## it to the dashboard service only
+    restrictAccess: false
+    # buckets: [0.1,0.3,1.2,5]
+  datadog:
+    enabled: false
+    # address: localhost:8125
+    # pushinterval: 10s
+  statsd:
+    enabled: false
+    # address: localhost:8125
+    # pushinterval: 10s
+deployment:
+  # labels to add to the pod container metadata
+  # podLabels:
+  #   key: value
+  # podAnnotations:
+  #   key: value
+  hostPort:
+    httpEnabled: false
+    httpsEnabled: false
+    dashboardEnabled: false
+sendAnonymousUsage: false
+tracing:
+  enabled: false
+  serviceName: traefik
+  # backend: choices are jaeger, zipkin, datadog
+  # jaeger:
+  #   localAgentHostPort: "127.0.0.1:6831"
+  #   samplingServerURL: http://localhost:5778/sampling
+  #   samplingType: const
+  #   samplingParam: 1.0
+  # zipkin:
+  #   httpEndpoint: http://localhost:9411/api/v1/spans
+  #   debug: false
+  #   sameSpan: false
+  #   id128bit: true
+  # datadog:
+  #   localAgentHostPort: "127.0.0.1:8126"
+  #   debug: false
+  #   globalTag: ""
+## Create HorizontalPodAutoscaler object.
+##
+# autoscaling:
+#   minReplicas: 1
+#   maxReplicas: 10
+#   metrics:
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       targetAverageUtilization: 60
+#   - type: Resource
+#     resource:
+#       name: memory
+#       targetAverageUtilization: 60

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secretmessage
+type: Opaque
+data:
+  MESSAGE: VGhpcyBpcyBteSBzZWNyZXQh
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmessage
+data:
+  MESSAGE: This is my config value!

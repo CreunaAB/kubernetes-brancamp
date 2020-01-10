@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-kubernetes
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: hello-kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kubernetes
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-kubernetes
+  template:
+    metadata:
+      labels:
+        app: hello-kubernetes
+    spec:
+      containers:
+      - name: hello-kubernetes
+        image: paulbouwer/hello-kubernetes:1.5
+        ports:
+        - containerPort: 8080
+        env:
+          - name: MESSAGE
+            valueFrom:
+              configMapKeyRef:
+                name: configmessage
+                key: MESSAGE
+          # - name: MESSAGE
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: oauth-settings
+          #         key: OAUTH2_CLIENT_ID
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing # This depends of the load balancer type
+spec:
+  rules:
+  - host: hello-kubernetes.cb42c541d98547d08a02.northeurope.aksapp.io
+    http:
+      paths:
+      - backend:
+          serviceName: hello-kubernetes
+          servicePort: 80
+        path: /
