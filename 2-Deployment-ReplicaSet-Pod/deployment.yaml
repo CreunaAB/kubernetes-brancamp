@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: hello-kubernetes
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
-  - port: 80
-    targetPort: 8080
+    - port: 80
+      targetPort: 8080
   selector:
     app: hello-kubernetes
 ---
@@ -15,7 +15,7 @@ kind: Deployment
 metadata:
   name: hello-kubernetes
 spec:
-  replicas: 10
+  replicas: 3
   selector:
     matchLabels:
       app: hello-kubernetes
@@ -25,10 +25,10 @@ spec:
         app: hello-kubernetes
     spec:
       containers:
-      - name: hello-kubernetes
-        image: paulbouwer/hello-kubernetes:1.5
-        ports:
-        - containerPort: 8080
+        - name: hello-kubernetes
+          image: paulbouwer/hello-kubernetes:1.5
+          ports:
+            - containerPort: 8080
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -38,10 +38,10 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing # This depends of the load balancer type
 spec:
   rules:
-  - host: hello-kubernetes.cb42c541d98547d08a02.northeurope.aksapp.io
-    http:
-      paths:
-      - backend:
-          serviceName: hello-kubernetes
-          servicePort: 80
-        path: /
+    - host: hello-kubernetes.cb42c541d98547d08a02.northeurope.aksapp.io
+      http:
+        paths:
+          - backend:
+              serviceName: hello-kubernetes
+              servicePort: 80
+            path: /
